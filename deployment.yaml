@@ -1,33 +1,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: una-deployment
+  name: una-assignment-deployment
   labels:
-    app: una-color-app
+    app: una-assignment-app
 spec:
-  replicas: 3 # Menjawab objektif: Fitur scaler (menjalankan 3 pod sekaligus)
+  replicas: 3
   strategy:
-    type: RollingUpdate # Menjawab objektif: Fitur rolling update
+    type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1        # Maksimal 1 pod tambahan saat proses update
-      maxUnavailable: 1  # Maksimal 1 pod yang boleh mati saat proses update
+      maxSurge: 1
+      maxUnavailable: 1
   selector:
     matchLabels:
-      app: una-color-app
+      app: una-assignment-app
   template:
     metadata:
       labels:
-        app: una-color-app
+        app: una-assignment-app
     spec:
       containers:
       - name: color-app
         image: fauzancloud/color-app:v1
         ports:
-        - containerPort: 80
-        resources: # Menjawab objektif: Limits, requests & best-practice management resource
+        - containerPort: 5000
+        env:
+        - name: APP_COLOR
+          valueFrom:
+            configMapKeyRef:
+              name: una-assignment-configmap
+              key: APP_COLOR
+        resources:
           requests:
-            memory: "64Mi"  # Kebutuhan RAM minimal
-            cpu: "100m"     # Kebutuhan CPU minimal (0.1 core)
+            cpu: "100m"
+            memory: "16Mi"
           limits:
-            memory: "128Mi" # Batas maksimal RAM agar pod tidak memonopoli resource node
-            cpu: "250m"     # Batas maksimal CPU (0.25 core)
+            cpu: "333m"    # Hasil bagi 1 Core / 3 Replica
+            memory: "42Mi" # Hasil bagi 128MB / 3 Replica

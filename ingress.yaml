@@ -1,16 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: una-ingress
+  name: una-assignment-ingress
 spec:
+  ingressClassName: traefik
   rules:
-  - host: una.apps.k3s.zauqilab.com
+  - host: una.assignment.apps.k3s.zauqilab.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: una-service
+            name: una-assignment-service
             port:
               number: 80
