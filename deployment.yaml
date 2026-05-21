@@ -5,7 +5,12 @@ metadata:
   labels:
     app: una-color-app
 spec:
-  replicas: 1
+  replicas: 3 # Menjawab objektif: Fitur scaler (menjalankan 3 pod sekaligus)
+  strategy:
+    type: RollingUpdate # Menjawab objektif: Fitur rolling update
+    rollingUpdate:
+      maxSurge: 1        # Maksimal 1 pod tambahan saat proses update
+      maxUnavailable: 1  # Maksimal 1 pod yang boleh mati saat proses update
   selector:
     matchLabels:
       app: una-color-app
@@ -19,3 +24,10 @@ spec:
         image: fauzancloud/color-app:v1
         ports:
         - containerPort: 80
+        resources: # Menjawab objektif: Limits, requests & best-practice management resource
+          requests:
+            memory: "64Mi"  # Kebutuhan RAM minimal
+            cpu: "100m"     # Kebutuhan CPU minimal (0.1 core)
+          limits:
+            memory: "128Mi" # Batas maksimal RAM agar pod tidak memonopoli resource node
+            cpu: "250m"     # Batas maksimal CPU (0.25 core)
