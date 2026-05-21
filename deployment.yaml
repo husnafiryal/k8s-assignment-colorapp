@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: una-deployment
+  labels:
+    app: una-color-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: una-color-app
+  template:
+    metadata:
+      labels:
+        app: una-color-app
+    spec:
+      containers:
+      - name: color-app
+        image: fauzancloud/color-app:v1
+        ports:
+        - containerPort: 80
