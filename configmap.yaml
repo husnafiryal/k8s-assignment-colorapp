@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: una-assignment-configmap
 data:
-  APP_COLOR: "#2c3e50"
+  APP_COLOR: "#c1d6bf"

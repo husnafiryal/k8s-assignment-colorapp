@@ -32,8 +32,8 @@ spec:
               key: APP_COLOR
         resources:
           requests:
-            cpu: "100m"
-            memory: "16Mi"
+            cpu: "10m" # 1% dari 1 core karena aplikasi juga ringan
+            memory: "8Mi" # penggunaan memori kecil juga
           limits:
-            cpu: "333m"    # Hasil bagi 1 Core / 3 Replica
-            memory: "42Mi" # Hasil bagi 128MB / 3 Replica
+            cpu: "333m"    # Hasil bagi dari 1 Core atau 1000m dibagi 3 Replica
+            memory: "42Mi" # Hasil bagi dari 128MB dibagi 3 Replica
